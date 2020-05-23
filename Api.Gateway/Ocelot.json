@@ -1,0 +1,33 @@
+{
+  "ReRoutes": [
+    {
+      //暴露出去的地址
+      "UpstreamPathTemplate": "/api/{controller}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      //转发到下面这个地址
+      "DownstreamPathTemplate": "/api/{controller}",
+      "DownstreamScheme": "http",
+      //资源服务器列表
+      "DownstreamHostAndPorts": [
+        {
+          "host": "localhost",
+          "port": 92
+        },
+        {
+          "host": "localhost",
+          "port": 93
+        }
+      ],
+      //决定负载均衡的算法
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "UseServiceDiscovery": true
+    }
+  ],
+  //对外暴露的访问地址  也就是Ocelot所在的服务器地址
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:91"
+  }
+}
